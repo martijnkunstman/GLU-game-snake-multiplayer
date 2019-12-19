@@ -10,6 +10,14 @@ let snakelength = 0;
 let food = "";
 let element = "n";
 
+let socket;
+socket = io.connect('http://localhost:3000');
+socket.on("tick", socketTick);
+
+function socketTick(data)
+{
+  console.log(data);
+}
 //------------------------------------
 
 //------------------------------------
@@ -118,9 +126,10 @@ function tick() {
       element = "i";
     }
   }
-
   poshistory.push([posy + "-" + posx, element]);
   directionOld = direction;
+  socket.emit("tick",posy + "-" + posx + "-" +element);
+
 
   if (food == "") {
     setNewFood();
