@@ -1,0 +1,102 @@
+.cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #eeeeee;
+  display: inline-block;
+  vertical-align: top;
+}
+.body {
+  background: red;
+}
+.food {
+  background: blue;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+.h, .i {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid red;
+  border-right: 1px solid red;
+}
+.v, .w {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid red;
+  border-bottom: 1px solid red;
+}
+.a, .k {
+  border-radius: 0;
+  border-top-left-radius: 50%;
+  border-right: 1px solid red;
+  border-bottom: 1px solid red;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+.d, .n {
+  border-radius: 0;
+  border-top-right-radius: 50%;
+  border-left: 1px solid red;
+  border-bottom: 1px solid red;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+}
+.c, .m {
+  border-radius: 0;
+  border-bottom-left-radius: 50%;
+  border-right: 1px solid red;
+  border-top: 1px solid red;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.b, .l {
+  border-radius: 0;
+  border-bottom-right-radius: 50%;
+  border-left: 1px solid red;
+  border-top: 1px solid red;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.e {
+  border-radius: 0;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid red;
+}
+.f {
+  border-radius: 0;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid red;
+}
+.g {
+  border-radius: 0;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid red;
+  border-top: 1px solid black;
+}
+.j {
+  border-radius: 0;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid red;
+  border-top: 1px solid black;
+}
+.r{
+  border-radius: 50%;
+  border: 1px solid black;
+}
+.z{
+  background: green;
+}
