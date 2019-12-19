@@ -1,0 +1,15 @@
+{
+  "name": "glu-game-snake-multiplayer",
+  "version": "1.0.0",
+  "description": "A multiplayer snake game using node express and socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martijn Kunstman",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
