@@ -1,24 +1,35 @@
 let gridsize;
 let socket;
+let gameData;
+let food;
+let direction;
+//--------------------------------------
 socket = io.connect('http://localhost:3000');
+//--------------------------------------
 socket.on("init", init);
 function init(data) {
   gridsize = data;
   createGrid();
 }
-
+//--------------------------------------
 socket.on("gameData", render);
 function render(data) {
+  gameData = data[0];
+  food = data[1];
   // clear all cells
   let cells = document.getElementsByClassName("cell");
   for (let i = 0; i < cells.length; i++) {
     cells[i].className = "cell";
   }
+  // draw food
+  if (food !="") {
+    document.getElementById("pos-" + food.y + "-" + food.x).classList.add("food");
+  }
   // draw all snakes
-  for (var i = 0; i < data.length; i++) {
+  for (var i = 0; i < gameData.length; i++) {
     //draw a snake
-    for (var j = 0; j < data.snake[i].length; j++) {
-      document.getElementById("pos-"+snake[i][j].x+"-"+snake[i][j].y).classList.add("body");
+    for (var j = 0; j < gameData[i].snake.length; j++) {
+      document.getElementById("pos-" + gameData[i].snake[j].y + "-" + gameData[i].snake[j].x).classList.add("body");
     }
   }
 }
@@ -36,12 +47,11 @@ function createGrid() {
     let br = document.createElement("br");
     document.body.appendChild(br);
   }
+  document.addEventListener("keydown", keydown);
 }
 
 //------------------------------------
-document.addEventListener("keydown", keydown);
 function keydown(e) {
-  olddirection = direction;
   if (e.code == "ArrowUp") {
     direction = 1;
   }
@@ -54,15 +64,14 @@ function keydown(e) {
   if (e.code == "ArrowRight") {
     direction = 4;
   }
-  if (olddirection != direction) {
-    socket.emit('direction', direction);
-  }
+  socket.emit('direction', direction);
 }
 
 
 //------------------------------------
 // to server
 //------------------------------------
+/*
 function tick() {
   // set position
   if (direction == 1) {
@@ -249,3 +258,4 @@ function setNewFood() {
 
 
 //------------------------------------
+*/

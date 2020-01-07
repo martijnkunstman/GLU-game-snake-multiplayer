@@ -1,7 +1,4 @@
 # GLU-Game-Snake-Multiplayer
 
-git init
-npm init
-npm install express
-npm install socket.io
+A multiplayer snake game using node express and socket.io
 
