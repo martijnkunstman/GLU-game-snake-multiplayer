@@ -1,32 +1,35 @@
-const gridsize = 15;
-let direction = 0;
-let directionOld = 0;
-let speed = 200;
-//------------------------------------
-let posx = Math.floor(gridsize / 2);
-let posy = Math.floor(gridsize / 2);
-let poshistory = [];
-let snakelength = 0;
-let food = "";
-let element = "n";
-
+let gridsize;
 let socket;
 socket = io.connect('http://localhost:3000');
-socket.on("tick", socketTick);
-
-function socketTick(data)
-{
-  console.log(data);
+socket.on("init", init);
+function init(data) {
+  gridsize = data;
+  createGrid();
 }
-//------------------------------------
+
+socket.on("gameData", render);
+function render(data) {
+  // clear all cells
+  let cells = document.getElementsByClassName("cell");
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].className = "cell";
+  }
+  // draw all snakes
+  for (var i = 0; i < data.length; i++) {
+    //draw a snake
+    for (var j = 0; j < data.snake[i].length; j++) {
+      document.getElementById("pos-"+snake[i][j].x+"-"+snake[i][j].y).classList.add("body");
+    }
+  }
+}
 
 //------------------------------------
-function creatGrid() {
+function createGrid() {
   let br = document.createElement("br");
   for (let a = 0; a < gridsize; a++) {
     for (let b = 0; b < gridsize; b++) {
       let cell = document.createElement("div");
-      cell.setAttribute("id", a + "-" + b);
+      cell.setAttribute("id", "pos-" + a + "-" + b);
       cell.setAttribute("class", "cell");
       document.body.appendChild(cell);
     }
@@ -34,10 +37,11 @@ function creatGrid() {
     document.body.appendChild(br);
   }
 }
-creatGrid();
+
 //------------------------------------
 document.addEventListener("keydown", keydown);
 function keydown(e) {
+  olddirection = direction;
   if (e.code == "ArrowUp") {
     direction = 1;
   }
@@ -50,7 +54,14 @@ function keydown(e) {
   if (e.code == "ArrowRight") {
     direction = 4;
   }
+  if (olddirection != direction) {
+    socket.emit('direction', direction);
+  }
 }
+
+
+//------------------------------------
+// to server
 //------------------------------------
 function tick() {
   // set position
@@ -128,8 +139,6 @@ function tick() {
   }
   poshistory.push([posy + "-" + posx, element]);
   directionOld = direction;
-  socket.emit("tick",posy + "-" + posx + "-" +element);
-
 
   if (food == "") {
     setNewFood();
@@ -238,5 +247,5 @@ function setNewFood() {
   food = place[Math.floor(Math.random() * place.length)];
 }
 
-tick();
+
 //------------------------------------
