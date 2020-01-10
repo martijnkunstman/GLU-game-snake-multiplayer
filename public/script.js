@@ -4,7 +4,7 @@ let gameData;
 let food;
 let direction;
 //--------------------------------------
-socket = io.connect('http://localhost:8080');
+socket = io.connect();
 //--------------------------------------
 socket.on("init", init);
 function init(data) {
