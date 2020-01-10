@@ -2,7 +2,7 @@
   "name": "glu-game-snake-multiplayer",
   "version": "1.0.0",
   "description": "A multiplayer snake game using node express and socket.io",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
