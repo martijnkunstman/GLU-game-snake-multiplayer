@@ -30,8 +30,7 @@ function render(data) {
     //draw a snake
     for (var j = 0; j < gameData[i].snake.length; j++) {
       document.getElementById("pos-" + gameData[i].snake[j].y + "-" + gameData[i].snake[j].x).classList.add("body");
-      if (gameData[i].id==socket.id)    
-      {
+      if (gameData[i].id == socket.id) {
         document.getElementById("pos-" + gameData[i].snake[j].y + "-" + gameData[i].snake[j].x).classList.add("green");
       }
     }
@@ -61,6 +60,13 @@ function createGrid() {
 }
 
 //------------------------------------
+
+let gyroscope = new Gyroscope({ frequency: 60 });
+gyroscope.addEventListener('reading', e => {
+  document.getElementById("gyroscope").innerHTML = gyroscope.x + " - " + gyroscope.y + " - " + gyroscope.z;
+});
+gyroscope.start();
+
 
 function keydown(e) {
   if (e.code == "ArrowUp") {
