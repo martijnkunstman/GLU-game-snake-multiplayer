@@ -1,3 +1,25 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+#container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#game{
+  border: 1px solid black;
+}
+
 .cell {
   width: 30px;
   height: 30px;
@@ -5,27 +27,39 @@
   display: inline-block;
   vertical-align: top;
 }
+
 .body {
   background: red;
 }
+.green {
+
+background: green !important;
+}
+
 .food {
   background: blue;
   border-radius: 50%;
   border: 1px solid black;
 }
-.h, .i {
+
+.h,
+.i {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   border-left: 1px solid red;
   border-right: 1px solid red;
 }
-.v, .w {
+
+.v,
+.w {
   border-left: 1px solid black;
   border-right: 1px solid black;
   border-top: 1px solid red;
   border-bottom: 1px solid red;
 }
-.a, .k {
+
+.a,
+.k {
   border-radius: 0;
   border-top-left-radius: 50%;
   border-right: 1px solid red;
@@ -33,7 +67,9 @@
   border-left: 1px solid black;
   border-top: 1px solid black;
 }
-.d, .n {
+
+.d,
+.n {
   border-radius: 0;
   border-top-right-radius: 50%;
   border-left: 1px solid red;
@@ -41,7 +77,9 @@
   border-right: 1px solid black;
   border-top: 1px solid black;
 }
-.c, .m {
+
+.c,
+.m {
   border-radius: 0;
   border-bottom-left-radius: 50%;
   border-right: 1px solid red;
@@ -49,7 +87,9 @@
   border-left: 1px solid black;
   border-bottom: 1px solid black;
 }
-.b, .l {
+
+.b,
+.l {
   border-radius: 0;
   border-bottom-right-radius: 50%;
   border-left: 1px solid red;
@@ -57,6 +97,7 @@
   border-right: 1px solid black;
   border-bottom: 1px solid black;
 }
+
 .e {
   border-radius: 0;
   border-top-left-radius: 50%;
@@ -66,6 +107,7 @@
   border-right: 1px solid black;
   border-bottom: 1px solid red;
 }
+
 .f {
   border-radius: 0;
   border-bottom-left-radius: 50%;
@@ -75,6 +117,7 @@
   border-right: 1px solid black;
   border-top: 1px solid red;
 }
+
 .g {
   border-radius: 0;
   border-top-left-radius: 50%;
@@ -84,6 +127,7 @@
   border-right: 1px solid red;
   border-top: 1px solid black;
 }
+
 .j {
   border-radius: 0;
   border-top-right-radius: 50%;
@@ -93,10 +137,12 @@
   border-left: 1px solid red;
   border-top: 1px solid black;
 }
-.r{
+
+.r {
   border-radius: 50%;
   border: 1px solid black;
 }
-.z{
+
+.z {
   background: green;
 }
