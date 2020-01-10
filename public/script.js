@@ -61,29 +61,10 @@ function createGrid() {
 
 //------------------------------------
 
-let gyroscope  = new Gyroscope({ frequency: 60 });
-
-gyroscope .addEventListener('reading', e => {
-  document.getElementById("gyroscope").innerHTML = accelerometer.x + " - " + accelerometer.y + " - " + accelerometer.z;
-  if (gyroscope.x > 5) {
-    socket.emit('direction', 3);
-  }
-  if (gyroscope.x < -5) {
-    socket.emit('direction', 4);
-  }
-  if (gyroscope.y > 5) {
-    socket.emit('direction', 2);
-  }
-  if (gyroscope.y < -5) {
-    socket.emit('direction', 1);
-  }
-});
-gyroscope.start();
-
 let accelerometer = new Accelerometer({ frequency: 60 });
 
 accelerometer.addEventListener('reading', e => {
-  //document.getElementById("gyroscope").innerHTML = accelerometer.x + " - " + accelerometer.y + " - " + accelerometer.z;
+  document.getElementById("gyroscope").innerHTML = accelerometer.x + " - " + accelerometer.y + " - " + accelerometer.z;
   if (accelerometer.x > 5) {
     socket.emit('direction', 3);
   }
