@@ -67,6 +67,13 @@ gyroscope.addEventListener('reading', e => {
 });
 gyroscope.start();
 
+let accelerometer = new Accelerometer({frequency: 60});
+
+accelerometer.addEventListener('reading', e => {
+  document.getElementById("gyroscope").innerHTML = accelerometer.x + " - " + accelerometer.y + " - " + accelerometer.z;
+});
+accelerometer.start();
+
 
 function keydown(e) {
   if (e.code == "ArrowUp") {
