@@ -51,6 +51,7 @@ function createGrid() {
       let cell = document.createElement("div");
       cell.setAttribute("id", "pos-" + a + "-" + b);
       cell.setAttribute("class", "cell");
+      cell.setAttribute("style","position:absolute; left:"+(30*a)+"px; top:"+ (30*b)+"px;");
       document.getElementById("game").appendChild(cell);
     }
     let br = document.createElement("br");
@@ -60,6 +61,11 @@ function createGrid() {
 }
 
 
+
+
+//------------------------------------
+
+/*
 document.addEventListener('touchstart', handleTouchStart, false);        
 document.addEventListener('touchmove', handleTouchMove, false);
 
@@ -90,21 +96,21 @@ function handleTouchMove(evt) {
 
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
         if ( xDiff > 0 ) {
-            /* left swipe */ 
+            // left swipe 
             document.getElementById("gyroscope").innerHTML = "left";
             direction = 3;
         } else {
-            /* right swipe */
+            // right swipe 
             document.getElementById("gyroscope").innerHTML = "right";
             direction = 4;
         }                       
     } else {
         if ( yDiff > 0 ) {
-            /* up swipe */ 
+            // up swipe  
             document.getElementById("gyroscope").innerHTML = "up";
             direction = 1;
         } else { 
-            /* down swipe */
+            // down swipe 
             document.getElementById("gyroscope").innerHTML = "down";
             direction = 2;
         }                                                                 
@@ -113,6 +119,8 @@ function handleTouchMove(evt) {
     yDown = null; 
     socket.emit('direction', direction);                                            
 };
+*/
+
 
 
 //------------------------------------
@@ -142,18 +150,28 @@ accelerometer.start();
 
 function keydown(e) {
   if (e.code == "ArrowUp") {
-    direction = 1;
-  }
-  if (e.code == "ArrowDown") {
-    direction = 2;
-  }
-  if (e.code == "ArrowLeft") {
     direction = 3;
   }
-  if (e.code == "ArrowRight") {
+  if (e.code == "ArrowDown") {
     direction = 4;
+  }
+  if (e.code == "ArrowLeft") {
+    direction = 1;
+  }
+  if (e.code == "ArrowRight") {
+    direction = 2;
   }
   socket.emit('direction', direction);
 }
+
+document.getElementById("up").addEventListener("mousedown", function(){direction = 3;socket.emit('direction', direction);});
+document.getElementById("down").addEventListener("mousedown", function(){direction = 4;socket.emit('direction', direction);});
+document.getElementById("left").addEventListener("mousedown", function(){direction = 1;socket.emit('direction', direction);});
+document.getElementById("right").addEventListener("mousedown", function(){direction = 2;socket.emit('direction', direction);});
+
+document.getElementById("up").addEventListener("touchstart", function(){direction = 3;socket.emit('direction', direction);});
+document.getElementById("down").addEventListener("touchstart", function(){direction = 4;socket.emit('direction', direction);});
+document.getElementById("left").addEventListener("touchstart", function(){direction = 1;socket.emit('direction', direction);});
+document.getElementById("right").addEventListener("touchstart", function(){direction = 2;socket.emit('direction', direction);});
 
 //------------------------------------
