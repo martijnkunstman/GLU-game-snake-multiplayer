@@ -13,7 +13,7 @@ let initialSnakeSpeed = 200;
 let snakeSpeedGrow = 20;
 let snakeSpeedMin = 100;
 let time = new Date().getTime();
-const gridSize = 16
+const gridSize = 50
 const speed = 1000 / 60;
 
 io.on('connection', newConnection)

@@ -9,11 +9,57 @@ socket = io.connect();
 socket.on("init", init);
 function init(data) {
   gridsize = data;
-  createGrid();
+  document.addEventListener("keydown", keydown);
 }
 //--------------------------------------
 socket.on("gameData", render);
+
 function render(data) {
+  gameData = data[0];
+  food = data[1];
+  var c = document.getElementById("myCanvas");
+  var ctx = c.getContext("2d");
+  // clear canvas
+  ctx.clearRect(0, 0, c.width, c.height);
+  var multiplier = 10;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.lineWidth = 10;
+  // draw food
+  if (food != "") {
+    ctx.strokeStyle = "blue";
+    ctx.beginPath();
+    ctx.moveTo(food.y*multiplier-0.1, food.x*multiplier-0.1);
+    ctx.lineTo(food.y*multiplier, food.x*multiplier);
+    ctx.stroke();
+  }
+  // draw all snakes
+  for (var i = 0; i < gameData.length; i++) {
+    ctx.beginPath();
+    //draw a snake
+    for (var j = 0; j < gameData[i].snake.length; j++) {
+
+      if (gameData[i].id == socket.id) {
+        ctx.strokeStyle = "green";
+      }
+      else{
+        ctx.strokeStyle = "red";
+      }
+      if (j == 0)
+      {
+        ctx.moveTo(gameData[i].snake[j].y*multiplier-0.1, gameData[i].snake[j].x*multiplier-0.1);
+        ctx.lineTo(gameData[i].snake[j].y*multiplier, gameData[i].snake[j].x*multiplier);
+      }
+      else{
+        ctx.lineTo(gameData[i].snake[j].y*multiplier, gameData[i].snake[j].x*multiplier);
+      }
+    }
+    ctx.stroke();
+  } 
+}
+
+
+function render2(data) {
   gameData = data[0];
   food = data[1];
   // clear all cells
@@ -37,114 +83,7 @@ function render(data) {
   }
 }
 
-//------------------------------------
-function createGridNew() {
 
-}
-
-//------------------------------------
-
-function createGrid() {
-  let br = document.createElement("br");
-  for (let a = 0; a < gridsize; a++) {
-    for (let b = 0; b < gridsize; b++) {
-      let cell = document.createElement("div");
-      cell.setAttribute("id", "pos-" + a + "-" + b);
-      cell.setAttribute("class", "cell");
-      cell.setAttribute("style","position:absolute; left:"+(30*a)+"px; top:"+ (30*b)+"px;");
-      document.getElementById("game").appendChild(cell);
-    }
-    let br = document.createElement("br");
-    document.getElementById("game").appendChild(br);
-  }
-  document.addEventListener("keydown", keydown);
-}
-
-
-
-
-//------------------------------------
-
-/*
-document.addEventListener('touchstart', handleTouchStart, false);        
-document.addEventListener('touchmove', handleTouchMove, false);
-
-var xDown = null;                                                        
-var yDown = null;
-
-function getTouches(evt) {
-  return evt.touches ||             // browser API
-         evt.originalEvent.touches; // jQuery
-}                                                     
-
-function handleTouchStart(evt) {
-    const firstTouch = getTouches(evt)[0];                                      
-    xDown = firstTouch.clientX;                                      
-    yDown = firstTouch.clientY;                                      
-};                                                
-
-function handleTouchMove(evt) {
-    if ( ! xDown || ! yDown ) {
-        return;
-    }
-
-    var xUp = evt.touches[0].clientX;                                    
-    var yUp = evt.touches[0].clientY;
-
-    var xDiff = xDown - xUp;
-    var yDiff = yDown - yUp;
-
-    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
-        if ( xDiff > 0 ) {
-            // left swipe 
-            document.getElementById("gyroscope").innerHTML = "left";
-            direction = 3;
-        } else {
-            // right swipe 
-            document.getElementById("gyroscope").innerHTML = "right";
-            direction = 4;
-        }                       
-    } else {
-        if ( yDiff > 0 ) {
-            // up swipe  
-            document.getElementById("gyroscope").innerHTML = "up";
-            direction = 1;
-        } else { 
-            // down swipe 
-            document.getElementById("gyroscope").innerHTML = "down";
-            direction = 2;
-        }                                                                 
-    }
-    xDown = null;
-    yDown = null; 
-    socket.emit('direction', direction);                                            
-};
-*/
-
-
-
-//------------------------------------
-
-/*
-let accelerometer = new Accelerometer({ frequency: 60 });
-
-accelerometer.addEventListener('reading', e => {
-  document.getElementById("gyroscope").innerHTML = accelerometer.x + " - " + accelerometer.y + " - " + accelerometer.z;
-  if (accelerometer.x > 5) {
-    socket.emit('direction', 3);
-  }
-  if (accelerometer.x < -5) {
-    socket.emit('direction', 4);
-  }
-  if (accelerometer.y > 5) {
-    socket.emit('direction', 2);
-  }
-  if (accelerometer.y < -5) {
-    socket.emit('direction', 1);
-  }
-});
-accelerometer.start();
-*/
 
 //------------------------------------
 
@@ -164,14 +103,14 @@ function keydown(e) {
   socket.emit('direction', direction);
 }
 
-document.getElementById("up").addEventListener("mousedown", function(){direction = 3;socket.emit('direction', direction);});
-document.getElementById("down").addEventListener("mousedown", function(){direction = 4;socket.emit('direction', direction);});
-document.getElementById("left").addEventListener("mousedown", function(){direction = 1;socket.emit('direction', direction);});
-document.getElementById("right").addEventListener("mousedown", function(){direction = 2;socket.emit('direction', direction);});
+document.getElementById("up").addEventListener("mousedown", function () { direction = 3; socket.emit('direction', direction); });
+document.getElementById("down").addEventListener("mousedown", function () { direction = 4; socket.emit('direction', direction); });
+document.getElementById("left").addEventListener("mousedown", function () { direction = 1; socket.emit('direction', direction); });
+document.getElementById("right").addEventListener("mousedown", function () { direction = 2; socket.emit('direction', direction); });
 
-document.getElementById("up").addEventListener("touchstart", function(){direction = 3;socket.emit('direction', direction);});
-document.getElementById("down").addEventListener("touchstart", function(){direction = 4;socket.emit('direction', direction);});
-document.getElementById("left").addEventListener("touchstart", function(){direction = 1;socket.emit('direction', direction);});
-document.getElementById("right").addEventListener("touchstart", function(){direction = 2;socket.emit('direction', direction);});
+document.getElementById("up").addEventListener("touchstart", function () { direction = 3; socket.emit('direction', direction); });
+document.getElementById("down").addEventListener("touchstart", function () { direction = 4; socket.emit('direction', direction); });
+document.getElementById("left").addEventListener("touchstart", function () { direction = 1; socket.emit('direction', direction); });
+document.getElementById("right").addEventListener("touchstart", function () { direction = 2; socket.emit('direction', direction); });
 
 //------------------------------------
