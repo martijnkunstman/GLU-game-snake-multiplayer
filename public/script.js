@@ -29,8 +29,8 @@ function render(data) {
   if (food != "") {
     ctx.strokeStyle = "blue";
     ctx.beginPath();
-    ctx.moveTo(food.y*multiplier-0.1, food.x*multiplier-0.1);
-    ctx.lineTo(food.y*multiplier, food.x*multiplier);
+    ctx.moveTo(food.y * multiplier - 0.1, food.x * multiplier - 0.1);
+    ctx.lineTo(food.y * multiplier, food.x * multiplier);
     ctx.stroke();
   }
   // draw all snakes
@@ -42,20 +42,45 @@ function render(data) {
       if (gameData[i].id == socket.id) {
         ctx.strokeStyle = "green";
       }
-      else{
+      else {
         ctx.strokeStyle = "red";
       }
-      if (j == 0)
-      {
-        ctx.moveTo(gameData[i].snake[j].y*multiplier-0.1, gameData[i].snake[j].x*multiplier-0.1);
-        ctx.lineTo(gameData[i].snake[j].y*multiplier, gameData[i].snake[j].x*multiplier);
+
+
+
+      var newX = gameData[i].snake[j].x;
+      var newY = gameData[i].snake[j].y;
+
+
+
+
+      if (j == 0) {
+        ctx.moveTo(newY * multiplier - 0.1, newX * multiplier - 0.1);
+        ctx.lineTo(newY * multiplier, newX * multiplier);
+
       }
-      else{
-        ctx.lineTo(gameData[i].snake[j].y*multiplier, gameData[i].snake[j].x*multiplier);
+      else if ((Math.abs(oldX - newX) > 1) || (Math.abs(oldY - newY) > 1)){
+        ctx.stroke();
+        ctx.moveTo(newY * multiplier, newX * multiplier);
       }
+      else {
+        ctx.lineTo(newY * multiplier, newX * multiplier);
+      }
+
+
+
+
+
+
+
+
+
+
+      var oldX = gameData[i].snake[j].x;
+      var oldY = gameData[i].snake[j].y;
     }
     ctx.stroke();
-  } 
+  }
 }
 
 
