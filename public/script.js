@@ -37,45 +37,73 @@ function render(data) {
   for (var i = 0; i < gameData.length; i++) {
     ctx.beginPath();
     //draw a snake
+    if (gameData[i].id == socket.id) {
+      ctx.strokeStyle = "green";
+    }
+    else {
+      ctx.strokeStyle = "red";
+    }
+    var xadd = 0;
+    var yadd = 0
+    var difference = multiplier * ((gameData[i].time - data[2]) / gameData[i].speed);
+
     for (var j = 0; j < gameData[i].snake.length; j++) {
-
-      if (gameData[i].id == socket.id) {
-        ctx.strokeStyle = "green";
-      }
-      else {
-        ctx.strokeStyle = "red";
-      }
-
-
-
       var newX = gameData[i].snake[j].x;
       var newY = gameData[i].snake[j].y;
-
-
-
-
       if (j == 0) {
-        ctx.moveTo(newY * multiplier - 0.1, newX * multiplier - 0.1);
-        ctx.lineTo(newY * multiplier, newX * multiplier);
-
-      }
-      else if ((Math.abs(oldX - newX) > 1) || (Math.abs(oldY - newY) > 1)){
-        ctx.stroke();
-        ctx.moveTo(newY * multiplier, newX * multiplier);
+        var xadd = 0;
+        var yadd = 0
+        if (gameData[i].snake.length > 1) {
+          if (gameData[i].snake[0].x == gameData[i].snake[1].x) {
+            if (gameData[i].snake[0].y < gameData[i].snake[1].y) {
+              yadd = - difference;
+            }
+            else {
+              yadd = difference;
+            }
+          }
+          else {
+            if (gameData[i].snake[0].x < gameData[i].snake[1].x) {
+              xadd = - difference;
+            }
+            else {
+              xadd = difference;
+            }
+          }
+        }
+        ctx.moveTo(newY * multiplier - 0.1 + yadd, newX * multiplier - 0.1 + xadd);
+        ctx.lineTo(newY * multiplier + yadd, newX * multiplier + xadd);
       }
       else {
-        ctx.lineTo(newY * multiplier, newX * multiplier);
+        var xadd = 0;
+        var yadd = 0
+        if (j == gameData[i].snake.length-1)
+        {
+          if (gameData[i].direction == 1)
+          {
+            yadd = difference
+          }
+          if (gameData[i].direction == 2)
+          {
+            yadd = -difference
+          }
+          if (gameData[i].direction == 3)
+          {
+            xadd = difference
+          }
+          if (gameData[i].direction == 4)
+          {
+            xadd = -difference
+          }
+        }
+        if ((Math.abs(oldX - newX) > 1) || (Math.abs(oldY - newY) > 1)) {
+          ctx.stroke();
+          ctx.moveTo(newY * multiplier + yadd, newX * multiplier + xadd);
+        }
+        else {
+          ctx.lineTo(newY * multiplier + yadd, newX * multiplier + xadd);
+        }
       }
-
-
-
-
-
-
-
-
-
-
       var oldX = gameData[i].snake[j].x;
       var oldY = gameData[i].snake[j].y;
     }
