@@ -10,8 +10,8 @@ const io = socket(server)
 let gameData = []
 let food = "";
 let initialSnakeSpeed = 200;
-let snakeSpeedGrow = 20;
-let snakeSpeedMin = 100;
+let snakeSpeedGrow = 15;
+let snakeSpeedMin = 50;
 let time = new Date().getTime();
 const gridSize = 50
 const speed = 1000 / 60;
@@ -84,7 +84,7 @@ function tick() {
    }
    // check food
    for (var i = 0; i < gameData.length; i++) {
-      if (gameData[i].snake[gameData[i].snake.length - 1].x == food.x && gameData[i].snake[gameData[i].snake.length - 1].y == food.y) {
+      if ((Math.abs(gameData[i].snake[gameData[i].snake.length - 1].x - food.x)<=1) && Math.abs(gameData[i].snake[gameData[i].snake.length - 1].y - food.y) <=1) {
          food = getRandomEmptyPosition();
          gameData[i].length++;
          gameData[i].speed = gameData[i].speed - snakeSpeedGrow;

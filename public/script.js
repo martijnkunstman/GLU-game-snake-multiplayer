@@ -24,7 +24,7 @@ function render(data) {
   var multiplier = 10;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
-  ctx.lineWidth = 10;
+  ctx.lineWidth = 20;
   // draw food
   if (food != "") {
     ctx.strokeStyle = "blue";
